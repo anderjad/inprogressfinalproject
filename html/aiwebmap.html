@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            flex-direction: column;
+        }
+
+        canvas {
+            border: 1px solid black;
+            background-color: #000;
+        }
+
+        #restartButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none; /* Initially hidden */
+        }
+
+        #restartButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="gameCanvas" width="400" height="400"></canvas>
+<button id="restartButton" onclick="restartGame()">Restart Game</button>
+
+<script>
+    // Game variables
+    let canvas = document.getElementById('gameCanvas');
+    let ctx = canvas.getContext('2d');
+    const gridSize = 20; // Size of each block
+    const canvasSize = 400;
+    let snake, direction, food, score, gameOver;
+
+    // Set up event listener for key press to control snake
+    document.addEventListener('keydown', changeDirection);
+
+    function startGame() {
+        snake = [{ x: 160, y: 160 }];
+        direction = 'right';
+        food = generateFood();
+        score = 0;
+        gameOver = false;
+
+        document.getElementById('restartButton').style.display = 'none'; // Hide restart button
+
+        gameLoop();
+    }
+
+    function gameLoop() {
+        if (gameOver) return;
+
+        moveSnake();
+        checkCollision();
+        draw();
+        setTimeout(gameLoop, 100); // Control the game speed
+    }
+
+    function draw() {
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw the snake
+        snake.forEach(part => {
+            ctx.fillStyle = 'green';
+            ctx.fillRect(part.x, part.y, gridSize, gridSize);
+        });
+
+        // Draw the food
+        ctx.fillStyle = 'red';
+        ctx.fillRect(food.x, food.y, gridSize, gridSize);
+
+        // Draw the score
+        ctx.fillStyle = 'white';
+        ctx.font = '20px Arial';
+        ctx.fillText('Score: ' + score, 10, 20);
+    }
+
+    function moveSnake() {
+        const head = { ...snake[0] };
+
+        if (direction === 'right') head.x += gridSize;
+        if (direction === 'left') head.x -= gridSize;
+        if (direction === 'up') head.y -= gridSize;
+        if (direction === 'down') head.y += gridSize;
+
+        snake.unshift(head);
+
+        // Check if snake eats food
+        if (head.x === food.x && head.y === food.y) {
+            score++;
+            food = generateFood();
+        } else {
+            snake.pop();
+        }
+    }
+
+    function changeDirection(event) {
+        if (event.key === 'ArrowRight' && direction !== 'left') direction = 'right';
+        if (event.key === 'ArrowLeft' && direction !== 'right') direction = 'left';
+        if (event.key === 'ArrowUp' && direction !== 'down') direction = 'up';
+        if (event.key === 'ArrowDown' && direction !== 'up') direction = 'down';
+    }
+
+    function checkCollision() {
+        const head = snake[0];
+
+        // Check wall collisions
+        if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
+            gameOver = true;
+            showRestartButton();
+        }
+
+        // Check self collisions
+        for (let i = 1; i < snake.length; i++) {
+            if (head.x === snake[i].x && head.y === snake[i].y) {
+                gameOver = true;
+                showRestartButton();
+            }
+        }
+    }
+
+    function generateFood() {
+        let foodX = Math.floor(Math.random() * (canvasSize / gridSize)) * gridSize;
+        let foodY = Math.floor(Math.random() * (canvasSize / gridSize)) * gridSize;
+        return { x: foodX, y: foodY };
+    }
+
+    function showRestartButton() {
+        document.getElementById('restartButton').style.display = 'block'; // Show restart button
+    }
+
+    function restartGame() {
+        startGame();
+    }
+
+    // Start the game when the page loads
+    startGame();
+</script>
+
+</body>
+</html>
