@@ -1,0 +1,98 @@
+/*body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+.container {
+    max-width: 850px;
+    margin: 25px auto;
+    padding: 20px;
+    background: #b6b0b0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+h1{
+    font-size: larger;
+
+}*/
+h3{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;    
+
+}
+h1{
+    color: white;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+body{
+    background-color: rgb(147, 167, 224);
+    color: white;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+h2, h3, h5, h6{
+    color: rgb(255, 255, 255); 
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style: italic
+}
+h4{
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+.main-content{
+    margin-left: 220px;
+    padding: 20px;
+
+}
+
+.sidebar{
+    background-color: white;
+    width: 100 px;
+    height: 100%;
+    left: 0;
+    padding: 15px;
+    position: fixed;
+}
+
+.sidebar ul li{
+        margin:15px 0;
+}
+.sidebar ul li a{
+    color: rgb(0, 0, 0);
+    text-decoration:none;
+}
+.sidebar ul li a:hover{
+    text-decoration: underline;
+}
+.navbar{
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+}
+.navbar a{
+        color: white;
+}
+.navbar a:hover{
+        background-color: #575757;
+        border-radius: 5px;
+}
+
+.tableauViz{
+    width: 560px !important;
+    height: 315px !important;
+
+}
+img{
+    width: 560px !important;
+    object-fit: cover;
+}
+
+
